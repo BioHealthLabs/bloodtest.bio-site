@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>BloodTest.bio – Blood Tests Explained (Markers, Panels, Preparation)</title>
+  <meta name="description"
+        content="Understand common blood tests in plain English: what each marker can indicate, how to prepare, and how to read results safely. Educational only." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://bloodtest.bio/" />
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Soft consent banner + GA loader (GA loads only AFTER accept; does NOT lock page) -->
+  <style>
+    /* ===== Consent (SOFT) ===== */
+    .consent-bar {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      z-index: 99999;
+      display: none;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(229,231,235,1);
+      border-radius: 16px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+      overflow: hidden;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .consent-bar[aria-hidden="false"] { display: block; }
+
+    .consent-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px 14px 12px;
+    }
+
+    @media (min-width: 720px) {
+      .consent-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 14px 16px;
+      }
+    }
+
+    .consent-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .consent-text strong { color: var(--text-main); }
+
+    .consent-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .consent-btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .consent-accept { background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #fff; }
+    .consent-reject {
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid rgba(236, 72, 153, 0.35);
+    }
+
+    .consent-links {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 2px;
+    }
+    .consent-links a { text-decoration: underline; }
+  </style>
+
+  <script>
+    (function () {
+      const CONSENT_KEY = "ronarn_consent_analytics_v1";
+      // If you want to reuse the Genectics GA ID, replace below.
+      // If you have a dedicated GA4 Measurement ID for bloodtest.bio, put it here (format: G-XXXXXXX).
+      const GA_ID = "G-3GVJ73QQ5J";
+
+      function showBanner() {
+        const bar = document.getElementById("consent-bar");
+        if (bar) bar.setAttribute("aria-hidden", "false");
+      }
+      function hideBanner() {
+        const bar = document.getElementById("consent-bar");
+        if (bar) bar.setAttribute("aria-hidden", "true");
+      }
+
+      function loadGA4() {
+        if (!GA_ID || !String(GA_ID).startsWith("G-")) return; // safety guard
+        if (window.__gaLoaded) return;
+        window.__gaLoaded = true;
+
+        const s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+        document.head.appendChild(s);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        window.gtag = gtag;
+
+        gtag("js", new Date());
+        gtag("config", GA_ID, { anonymize_ip: true });
+      }
+
+      function setConsent(value) { localStorage.setItem(CONSENT_KEY, value); }
+      function getConsent() { return localStorage.getItem(CONSENT_KEY); }
+      function clearConsent() { localStorage.removeItem(CONSENT_KEY); }
+
+      window.__openPrivacySettings = function () {
+        clearConsent();
+        showBanner();
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const saved = getConsent();
+        if (saved === "accepted") { loadGA4(); hideBanner(); return; }
+        if (saved === "rejected") { hideBanner(); return; }
+
+        showBanner();
+
+        const btnAccept = document.getElementById("consent-accept");
+        const btnReject = document.getElementById("consent-reject");
+
+        btnAccept.addEventListener("click", function () {
+          setConsent("accepted");
+          loadGA4();
+          hideBanner();
+        });
+
+        btnReject.addEventListener("click", function () {
+          setConsent("rejected");
+          hideBanner();
+        });
+      });
+    })();
+  </script>
+</head>
+
+<body>
+  <!-- SOFT Consent Bar -->
+  <div id="consent-bar" class="consent-bar" role="dialog" aria-modal="false" aria-hidden="true" aria-label="Privacy choices">
+    <div class="consent-inner">
+      <div class="consent-text">
+        <strong>Privacy:</strong> BloodTest.bio can use analytics to understand which pages are useful.
+        Accepting loads Google Analytics (GA4). Rejecting keeps the site fully functional without analytics.
+      </div>
+      <div class="consent-actions">
+        <button id="consent-accept" class="consent-btn consent-accept" type="button">Accept analytics</button>
+        <button id="consent-reject" class="consent-btn consent-reject" type="button">Reject</button>
+        <span class="consent-links">
+          <a href="https://screenblood.com/privacy.html" rel="noopener">Privacy</a>
+          <span>·</span>
+          <a href="https://screenblood.com/disclosure.html" rel="noopener">Disclosure</a>
+          <span>·</span>
+          <a href="#" onclick="window.__openPrivacySettings(); return false;">Settings</a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- HEADER (full, adapted from HomeTest.bio) -->
+    <header>
+      <div class="brand">
+        <div class="brand-name">BloodTest.bio</div>
+        <div class="brand-tagline">
+          Independent education on blood markers, panels, and safe interpretation.
+        </div>
+      </div>
+
+      <div class="trust-tags">
+        <span class="trust-tag">Educational only</span>
+        <span class="trust-tag">No paid rankings</span>
+        <span class="trust-tag">Plain-language guides</span>
+      </div>
+
+      <nav class="tabs" aria-label="Primary">
+        <a class="tab is-active" href="/" aria-current="page">Overview</a>
+        <a class="tab" href="#common-panels">Common panels</a>
+        <a class="tab" href="#by-goal">By goal</a>
+        <a class="tab" href="#prepare">How to prepare</a>
+        <a class="tab" href="#read">Reading results</a>
+        <a class="tab" href="#limits">Limits</a>
+        <a class="tab" href="#resources">Resources</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+
+      <!-- HERO -->
+      <section class="hero" aria-labelledby="hero-heading">
+        <div>
+          <h1 id="hero-heading" class="hero-title">Blood tests explained — what markers can (and can’t) tell you.</h1>
+
+          <p class="hero-subtitle">
+            Blood tests are often ordered, then misunderstood. This page explains the most common panels and markers
+            in plain language, and how to think about results safely. This is educational only — not medical advice.
+          </p>
+
+          <ul class="hero-list">
+            <li>Understand common panels like CBC, lipids, HbA1c, thyroid and liver/kidney markers.</li>
+            <li>Learn what “out of range” can mean (and when it can be benign).</li>
+            <li>See “by goal” paths: fatigue, metabolic health, inflammation, hormones and more.</li>
+          </ul>
+
+          <div class="hero-highlight">
+            Best practice: interpret results with symptoms + history + repeat tests over time — not one single number.
+          </div>
+
+          <div class="hero-actions">
+            <a href="#common-panels" class="btn-primary">Start with common panels <span class="chevron">›</span></a>
+            <a href="#prepare" class="btn-secondary">How to prepare for tests</a>
+            <a href="https://screenblood.com/" class="btn-secondary" rel="noopener">ScreenBlood.com hub</a>
+          </div>
+        </div>
+
+        <aside class="hero-aside">
+          <div class="rating-pill" aria-label="Quick note">
+            <span class="star">★</span>
+            <strong>Quick note:</strong>
+            Some tests require fasting, timing, or medication context.
+          </div>
+
+          <p class="hero-note">
+            If you are using at-home testing, always check what sample type is used (finger prick vs venous draw),
+            and whether the lab is certified in your region. For a structured at-home testing overview, use
+            <a href="https://hometest.bio/" rel="noopener">HomeTest.bio</a>.
+          </p>
+
+          <p class="hero-note">
+            Contact: <a href="mailto:info@screenblood.com">info@screenblood.com</a>
+          </p>
+        </aside>
+      </section>
+
+      <!-- COMMON PANELS -->
+      <section id="common-panels" class="card" aria-labelledby="panels-heading">
+        <h2 id="panels-heading" class="section-title">Common blood test panels (high-level)</h2>
+        <p class="section-subtitle">
+          Below is a plain-language overview of what these panels typically aim to measure. The same test can be used
+          for different clinical questions — so context matters.
+        </p>
+
+        <div class="table-wrapper" role="region" aria-label="Common panels table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Panel</th>
+                <th scope="col">What it’s often used for</th>
+                <th scope="col">Typical markers inside</th>
+                <th scope="col">Common gotchas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CBC</strong> (Complete Blood Count)</td>
+                <td>Red/white blood cell patterns, anemia screening, infection clues</td>
+                <td>RBC, Hgb/Hct, WBC, platelets, MCV/MCH</td>
+                <td>Hydration, recent illness, and inflammation can shift values</td>
+              </tr>
+              <tr>
+                <td><strong>Lipid panel</strong></td>
+                <td>Cardiometabolic risk signals</td>
+                <td>Total cholesterol, LDL, HDL, triglycerides</td>
+                <td>Non-fasting vs fasting can change triglycerides</td>
+              </tr>
+              <tr>
+                <td><strong>Glucose / HbA1c</strong></td>
+                <td>Diabetes risk and longer-term glucose control</td>
+                <td>Fasting glucose, HbA1c</td>
+                <td>HbA1c can be affected by anemia and red cell turnover</td>
+              </tr>
+              <tr>
+                <td><strong>Thyroid basics</strong></td>
+                <td>Thyroid function signals</td>
+                <td>TSH, Free T4 (sometimes Free T3)</td>
+                <td>Timing, illness, and certain meds can move TSH</td>
+              </tr>
+              <tr>
+                <td><strong>Liver markers</strong></td>
+                <td>Liver irritation/injury pattern signals</td>
+                <td>ALT, AST, ALP, bilirubin</td>
+                <td>Hard workouts can elevate AST/ALT temporarily</td>
+              </tr>
+              <tr>
+                <td><strong>Kidney markers</strong></td>
+                <td>Kidney filtration and hydration context</td>
+                <td>Creatinine, eGFR, BUN</td>
+                <td>Creatinine can be influenced by muscle mass and supplements</td>
+              </tr>
+              <tr>
+                <td><strong>CRP</strong></td>
+                <td>Inflammation signal (non-specific)</td>
+                <td>hs-CRP or standard CRP</td>
+                <td>CRP rises with infections, injuries, and many inflammatory states</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="section-subtitle">
+          Next step: use the “By goal” section to choose which markers are worth understanding first.
+        </p>
+      </section>
+
+      <!-- BY GOAL -->
+      <section id="by-goal" class="card" aria-labelledby="goal-heading">
+        <h2 id="goal-heading" class="section-title">Choose a goal (how people actually use blood tests)</h2>
+        <p class="section-subtitle">
+          These are not diagnostic checklists. They are “interpretation maps” to help you understand what a clinician
+          is usually trying to rule in/out and why repeat testing matters.
+        </p>
+
+        <div class="table-wrapper" role="region" aria-label="Goals table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Goal / symptom</th>
+                <th scope="col">Common starting markers</th>
+                <th scope="col">Why they’re used</th>
+                <th scope="col">What to watch for</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Fatigue / low energy</strong></td>
+                <td>CBC, ferritin/iron context, thyroid basics, B12/folate context</td>
+                <td>Anemia patterns, thyroid signals, deficiency signals</td>
+                <td>One abnormal value doesn’t explain fatigue by itself</td>
+              </tr>
+              <tr>
+                <td><strong>Metabolic health</strong></td>
+                <td>Fasting glucose, HbA1c, lipid panel</td>
+                <td>Longer-term glucose and cardiometabolic risk signals</td>
+                <td>Focus on trends + lifestyle + meds context</td>
+              </tr>
+              <tr>
+                <td><strong>Inflammation / “I feel sick”</strong></td>
+                <td>CBC differential, CRP (context), sometimes liver markers</td>
+                <td>Non-specific inflammation signals + immune cell patterns</td>
+                <td>CRP is non-specific; don’t self-diagnose infections</td>
+              </tr>
+              <tr>
+                <td><strong>Hormone questions</strong></td>
+                <td>Thyroid basics; sex hormones only with symptom-specific context</td>
+                <td>Many “hormone panels” are timing-sensitive</td>
+                <td>Time of day, cycle day, and meds can dominate results</td>
+              </tr>
+              <tr>
+                <td><strong>Liver / kidney concern</strong></td>
+                <td>ALT/AST/ALP/bilirubin; creatinine/eGFR/BUN</td>
+                <td>Pattern signals, not single-number judgments</td>
+                <td>Exercise, alcohol, dehydration can shift values</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PREP -->
+      <section id="prepare" class="card" aria-labelledby="prep-heading">
+        <h2 id="prep-heading" class="section-title">How to prepare (simple, practical)</h2>
+        <p class="section-subtitle">
+          Many “false alarms” come from prep issues: fasting, hydration, supplements, timing, and recent training.
+          Always follow your lab or clinician instructions first.
+        </p>
+
+        <ul class="hero-list">
+          <li><strong>Fasting:</strong> often relevant for triglycerides and fasting glucose (your provider will specify).</li>
+          <li><strong>Hydration:</strong> dehydration can concentrate values and affect kidney-related markers.</li>
+          <li><strong>Hard training:</strong> intense workouts can temporarily raise some markers (especially muscle/liver enzymes).</li>
+          <li><strong>Supplements:</strong> disclose common ones (iron, creatine, biotin) because they can affect certain tests.</li>
+          <li><strong>Timing:</strong> some hormones and cortisol-related markers vary by time of day.</li>
+        </ul>
+
+        <div class="hero-highlight" style="margin-top: 12px;">
+          If you retest, aim to keep conditions similar (time of day, fasting, training, hydration) so trends are meaningful.
+        </div>
+      </section>
+
+      <!-- READING RESULTS -->
+      <section id="read" class="card" aria-labelledby="read-heading">
+        <h2 id="read-heading" class="section-title">Reading results safely</h2>
+        <p class="section-subtitle">
+          Reference ranges are not universal “healthy vs unhealthy” cutoffs. They are statistical ranges from a population.
+          A result can be “out of range” for benign reasons — or “in range” while a problem exists.
+        </p>
+
+        <div class="table-wrapper" role="region" aria-label="Reading results table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Rule of thumb</th>
+                <th scope="col">Why it matters</th>
+                <th scope="col">Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Look for patterns</strong></td>
+                <td>Single markers are noisy; patterns are more informative</td>
+                <td>Low Hgb + low MCV suggests a different story than low Hgb + high MCV</td>
+              </tr>
+              <tr>
+                <td><strong>Compare over time</strong></td>
+                <td>Trends are often more meaningful than one-off values</td>
+                <td>HbA1c drifting up slowly is a stronger signal than one slightly high reading</td>
+              </tr>
+              <tr>
+                <td><strong>Context beats numbers</strong></td>
+                <td>Symptoms, meds, infections, and training can dominate</td>
+                <td>CRP after a cold means something different than persistent CRP elevation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- LIMITS -->
+      <section id="limits" class="card" aria-labelledby="limits-heading">
+        <h2 id="limits-heading" class="section-title">Limits &amp; common pitfalls</h2>
+        <p class="section-subtitle">
+          Blood testing is powerful, but not magic. Here’s what this site will always be strict about.
+        </p>
+
+        <ul class="hero-list">
+          <li><strong>Not diagnosis:</strong> You cannot diagnose serious disease from a generic panel alone.</li>
+          <li><strong>At-home constraints:</strong> finger-prick tests can differ from venous draws for some markers.</li>
+          <li><strong>Over-testing risk:</strong> more tests can create more false positives (noise) without clear benefit.</li>
+          <li><strong>Lab variation:</strong> different labs and methods can give slightly different results.</li>
+        </ul>
+
+        <div class="hero-highlight" style="margin-top: 12px;">
+          If you have concerning symptoms, use a qualified clinician and a properly supervised testing pathway.
+        </div>
+      </section>
+
+      <!-- RESOURCES + CTA -->
+      <section id="resources" class="card" aria-labelledby="resources-heading">
+        <h2 id="resources-heading" class="section-title">Resources and next steps</h2>
+        <p class="section-subtitle">
+          BloodTest.bio is the educational “marker map”. For the wider at-home testing ecosystem and comparisons,
+          use the hubs below.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn-secondary" href="https://hometest.bio/" rel="noopener">HomeTest.bio – hub overview</a>
+          <a class="btn-secondary" href="https://screenblood.com/" rel="noopener">ScreenBlood.com – blood testing hub</a>
+
+          <!-- Everlywell (affiliate tracking link provided by you) -->
+          <a class="btn-primary"
+             href="https://everlywell.pxf.io/c/6693012/1588702/18412"
+             target="_blank" rel="nofollow sponsored noopener">
+            Everlywell – view at-home tests <span class="chevron">›</span>
+          </a>
+        </div>
+
+        <p class="section-subtitle" style="margin-top: 12px;">
+          Disclosure: Some outgoing links may be commercial links. This does not affect our educational positioning or how
+          topics are explained.
+        </p>
+      </section>
+
+      <section class="disclaimer">
+        <p>
+          BloodTest.bio is for informational purposes only and does not provide medical advice, diagnosis, or treatment.
+          Always consult a qualified healthcare professional for medical decisions.
+        </p>
+      </section>
+
+    </main>
+
+    <!-- FOOTER (matches your network style direction; contact is as requested) -->
+    <footer class="site-footer">
+      <span>© <span id="year"></span> BloodTest.bio – Evidence-based blood test education.</span>
+      <span>Operated by ronarn AS, Norway. Independent information site.</span>
+      <span>Contact: <a href="mailto:info@screenblood.com">info@screenblood.com</a></span>
+      <span>Business address: Pb. 1010 Lillestrøm Syd, 2012 Lillestrøm, Norway</span>
+
+      <span class="footer-links">
+        <a href="https://privacypolicy.bio" target="_blank" rel="noopener">Privacy Policy</a> ·
+        <a href="https://terms.bio" target="_blank" rel="noopener">Terms</a> ·
+        <a href="https://disclaimer.bio" target="_blank" rel="noopener">Medical &amp; Affiliate Disclaimer</a> ·
+        <a href="https://disclosure.bio" target="_blank" rel="noopener">Affiliate Disclosure</a> ·
+        <a href="https://policies.bio" target="_blank" rel="noopener">Policies</a> ·
+        <a href="https://transparency.bio" target="_blank" rel="noopener">Transparency</a>
+        <span> · </span>
+        <a href="#" onclick="window.__openPrivacySettings && window.__openPrivacySettings(); return false;">Privacy settings</a>
+      </span>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      const el = document.getElementById("year");
+      if (el) el.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+</body>
+</html>
+```0
